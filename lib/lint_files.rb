@@ -1,15 +1,24 @@
 class LintFile
 
-    attr_reader : file_path_name
-    def initialize(file_path_name)
-        @file_name = file_path_name
+    attr_reader :file_name
+
+    def initialize(file_name)
+        @file_name = file_name
     end
 
-    def read_lines(@file_name)
-        File.read_lines(@file_path_name)
+    def file_exist?(file_name)
+        File.exist?(file_name) ? true : "Could not find #{path} file, ensure you have entered a valid path"
     end
 
-    def close_file(@file_path_name)
-        File.close(@file_path_name)
+    def open_file(file_name)
+        File.open(file_name)
+    end
+
+    def read_lines(open_file)
+        open_file.readlines.map(&:chomp)
+    end
+
+    def close_file(file_name)
+        File.close(file_name)
     end
 end
