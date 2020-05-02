@@ -1,7 +1,18 @@
 #!/usr/bin/env ruby
-puts '1. check if path is provided'
-puts '2. if a path is found or provided'
-puts'3. check if its a file or directory'
-puts '4. lint the files whether directory or file'
-puts '5. otherwise if there is no path check lint errors for all files in current directory that match a particular type'
-puts '6. error type in file #filename on line #line number. #error msg'
+if ARGV
+  path = ARGV[0]
+  File.exist?(path) ? 'true' : "Could not find #{path} file"
+  file = File.open(path)
+  all_lines = file.readlines.map(&:chomp)
+  all_lines
+#   File.close(path)
+  lines = []
+  all_lines.each_with_index do |value, index|
+    line_no = index + 1
+    line_content = value
+    file_name = path
+    # lines << line
+  end
+
+end
+puts '#error type in file #filename on line #line number. #error msg'
