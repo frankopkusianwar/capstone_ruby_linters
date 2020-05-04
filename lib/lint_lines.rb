@@ -1,26 +1,76 @@
+require_relative './lint_errors'
 class  Line
-    attr_reader :line_no, :content
-    lines = []
-    def initialize(line_no, content)
+    attr_reader :line_no, :content, :file_name
+    def initialize(line_no, content, file_name)
         @line_no = line_no
         @content = content
+        @file_name = file_name
     end
 
-    def check_all_errors(item)
-        # puts 'check method goes here'
-        check_test(item)
-        check_test2(item)
+    def self.check_all_errors(errors, item)
+        item.check_missing_semi_colon(errors, item)
+        item.check_missing_var(errors, item)
+        item.check_using_floats(errors,item)
     end
 
-    def check_test(line)
-        if line.content == "// again"
-          puts 'error msg'
+    def valid_line?(line)
+        condition = true
+        if line.content.empty? 
+            condition = false
+        elsif line.content[0].include?('/')
+            condition = false
+        else
+            condition = true
         end
+        condition
     end
 
-    def check_test2(line)
-        if line.content == "// yees"
-          puts 'error msg2'
+    def check_block?(line)
+        block = ['if', 'else', 'for', 'while']
+        condition = false
+        block.each do |item|
+            if line.content.include?(item)
+                condition = false
+            else
+                condition = true
+            end
         end
+        condition
+    end
+
+    def check_missing_semi_colon(errors, item)
+        if valid_line?(item) == true 
+          if item.content[content.length-1].include?(';') == false
+            error = Lint_errors.new(item)  
+            errors << error.raise_line_semicolon
+          end
+        end
+        errors
+    end
+
+    def check_using_floats(errors, item)
+      operations = ["+", "-", "*", "/"]
+      if valid_line?(item) == true
+        operations.each do |x|
+          if item.content.chars.include?(x)
+            if item.content.include?(".")
+                error = Lint_errors.new(item)  
+                errors << error.raise_floats
+            end 
+          end
+        end
+      end
+      errors
+    end
+
+    def check_missing_var(errors, line)
+        if valid_line?(line) && line.content.chars.include?('=')
+            characters = line.content.split(" ")
+            if characters[0] != 'var'
+                error = Lint_errors.new(line)  
+                errors << error.raise_var
+            end
+        end
+        errors
     end
 end
