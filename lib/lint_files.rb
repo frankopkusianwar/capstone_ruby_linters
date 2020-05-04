@@ -7,7 +7,7 @@ class LintFile
     end
 
     def file_exist?(file_name)
-        File.exist?(file_name) ? true : "Could not find #{path} file, ensure you have entered a valid path"
+        File.exist?(file_name) ? true : "Could not find #{file_name} file, ensure you have entered a valid path"
     end
 
     def open_file(file_name)

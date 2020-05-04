@@ -1,4 +1,5 @@
 require_relative '../lint_files'
+require_relative '../lint_lines'
 
 module Utilities
 
@@ -17,12 +18,24 @@ module Utilities
     end
 
     def self.start_lint(path)
-        file = LintFile.new(path)
-        if file.file_exist?(file.file_name)
-          open_file = file.open_file(file.file_name)
-          file.read_lines(open_file)
-        else
-          puts file.file_exist(path)
-        end
+      errors = []
+      file = LintFile.new(path)
+      if file.file_exist?(file.file_name) == true
+        opened_file = file.open_file(file.file_name)
+        read_lines = file.read_lines(opened_file)
+        all_lines = create_lines(read_lines)
+        all_lines.each { |item| item.check_all_errors(item) }
+      else
+        puts file.file_exist?(file.file_name)
+      end
+    end
+
+    def self.create_lines(read_lines)
+      lines = []
+      read_lines.each_with_index do |item, index|
+        new_line = Line.new(index + 1, item)
+        lines << new_line
+      end
+      lines
     end
 end
