@@ -12,6 +12,12 @@ class Lint_errors
         color_msg
     end
 
+    def raise_line_parenthesis
+        @type = 'Syntax Error'
+        @msg = 'missing closing parenthesis'
+        color_msg
+    end
+
     def raise_var
         @type = 'Syntax Error'
         @msg = 'missing var keyword for variable declaration'

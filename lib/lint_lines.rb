@@ -73,4 +73,26 @@ class  Line
         end
         errors
     end
+
+    def check_missing_close_parenthesis(errors, line)
+        arr = []
+        if valid_line?(line) == true
+            line.content.chars.each do |x|
+                if x == ')' && arr.size == 0
+                    false
+                elsif x == '('
+                    arr << x
+                elsif x == ")"
+                    arr.pop
+                end
+            end
+            if arr.size == 0
+                false
+            else
+                error = Lint_errors.new(line)  
+                errors << error.raise_line_parenthesis
+            end
+        end
+        errors
+    end
 end

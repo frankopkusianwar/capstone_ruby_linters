@@ -7,19 +7,22 @@ if ARGV.length >= 1
   path = ARGV[0]
   valid_path = /^[\W|\w]+.js$/
   if valid_path.match?(path)
-    Utilities.start_lint(path,errors)
+    Controller.start_lint(path,errors)
   else
-    puts 'check js files in directory and lint them'
+    Controller.start_lint_dir(path,errors)
   end
 else
-  Utilities.check_root_dir(path)
+  files = Controller.find_files(path)
+  if files.is_a?(String)
+    puts files
+  else
+    Controller.start_root_lint(files, errors)
+  end
 end
 
-if errors.length >= 1
+if errors
   errors.each do |error|
     puts "#{error.type} in file #{error.line.file_name}:on line #{error.line.line_no}, #{error.msg}"
-    puts "#{errors.length} errors found"
   end
-else
-  puts "Your code is clean, no errors found"
+  puts "#{errors.length} errors found"
 end
