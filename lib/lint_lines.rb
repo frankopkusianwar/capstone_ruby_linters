@@ -27,19 +27,6 @@ class Line
     condition
   end
 
-  def check_block?(line)
-    block = %w[if else for while]
-    condition = false
-    block.each do |item|
-      condition = if line.content.include?(item)
-                    false
-                  else
-                    true
-                  end
-    end
-    condition
-  end
-
   def check_missing_semi_colon(errors, item)
     if valid_line?(item) == true
       if item.content[content.length - 1].include?(';') == false
@@ -127,22 +114,7 @@ class Line
     end
     errors
   end
-
-  # def check_adding_string_to_number(errors, line)
-  #   line.content.chars.each_with_index do |item, index|
-  #     if item == '+'
-  #       pos = index
-  #       if check_empty_position(line,pos) == true
-  #         if line.content.chars[pos-1] == '\"' && line.content.chars[pos+1] == '\"'
-  #           p 'one'
-  #         else
-  #           p 'not'
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
-
+  
   def check_missing_close_parenthesis(errors, line)
     arr = []
     if valid_line?(line) == true
