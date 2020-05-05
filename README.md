@@ -10,7 +10,20 @@ This is a capstone project for comming up with a linter built in ruby. The linte
 - excecute the main.rb file inside bin/main.rb
 - You can as well specify the path to the files to be linted as a commandline argument e.g 
 bin/main.rb path/file_name or bin/main.rb path/directory_name
-- Note this can only be done when the javascript files are included inside the project directory 
+- Note this can only be done when the javascript files are included inside the project directory
+
+## Good and Bad code
+
+## Bad code
+   `var x = 1 + 2` missing semi colon at end of statement
+   `x = 1 + 2;` missing var key word for variable declaration
+   `var x = "1" + 2;` detected adding an integer to a string
+   `var x = 1.0 + 2;` avoid using floats in mathematical operations
+   `if(x=y);` invalid comparison operator for if condition
+
+## Good code
+   `var x = 1 + 2;` 
+   `if(x==y);` invalid comparison operator for if condition
 
 
 ![screenshot](./screenshot.PNG)
