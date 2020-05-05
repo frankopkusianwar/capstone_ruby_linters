@@ -12,6 +12,8 @@ class Line
     item.check_missing_semi_colon(errors, item)
     item.check_missing_var(errors, item)
     item.check_using_floats(errors, item)
+    item.check_accidental_assignment(errors, item)
+    item.check_adding_string_to_number(errors, item)
   end
 
   def valid_line?(line)
@@ -73,6 +75,75 @@ class Line
     end
     errors
   end
+
+  def check_accidental_assignment(errors, line)
+    if valid_line?(line)
+      characters = line.content.split(' ')
+      count=0
+      if line.content.include?'if'
+        line.content.chars.each do |item| 
+          if item == '='
+            count +=1  
+          end
+        end
+        if count < 2
+          error = LintErrors.new(line)
+          errors << error.raise_invalid_comparison
+        end  
+      end
+    end
+    errors
+  end
+
+  def check_empty_position(line,pos)
+    if line.content.chars[pos-1] != ' ' && line.content.chars[pos+1] != ' '
+      true
+    else
+      false
+    end
+  end
+
+  def check_adding_string_to_number(errors, line)
+    line.content.chars.each_with_index do |item, index|
+      if item == '+'
+        pos = index
+        new_str = line.content.chars[pos-2] + line.content.chars[pos-1] + line.content.chars[pos] + line.content.chars[pos+1] + line.content.chars[pos+2]
+        new_str.gsub!(/\s+/, "")
+        new_str.chars.each_with_index do |item, index|
+          if item == '+'
+            new_pos = index
+            if new_str[new_pos-1].include?'"'
+              if !new_str[new_pos+1].include?'"'
+                error = LintErrors.new(line)
+                errors << error.raise_no_interger_string
+              end
+            elsif new_str[new_pos+1].include?'"'
+              if !new_str[new_pos-1].include?'"'
+                error = LintErrors.new(line)
+                errors << error.raise_no_interger_string
+              end
+            end
+          end
+        end
+      end
+    end
+    errors
+  end
+
+  # def check_adding_string_to_number(errors, line)
+  #   line.content.chars.each_with_index do |item, index|
+  #     if item == '+'
+  #       pos = index
+  #       if check_empty_position(line,pos) == true
+  #         if line.content.chars[pos-1] == '\"' && line.content.chars[pos+1] == '\"'
+  #           p 'one'
+  #         else
+  #           p 'not'
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
   def check_missing_close_parenthesis(errors, line)
     arr = []

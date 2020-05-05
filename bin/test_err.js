@@ -1,4 +1,7 @@
-x = 2.0 * 30;
-for ();
-function name(){};
+var x = 2 * 30
+x = 2 * 30;
+var x = 2.0 * 30
+var x = "2" + 30;
+var if('x'=2){};
+var if('x'==2{};
 

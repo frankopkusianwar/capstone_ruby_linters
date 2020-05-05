@@ -29,6 +29,19 @@ class LintErrors
     @msg = 'avoid using floats in mathematical operations'
     color_msg
   end
+  
+    
+  def raise_invalid_comparison
+    @type = 'Syntax Error'
+    @msg = 'invalid comparison operator = for if statement'
+    color_msg
+  end
+
+  def raise_no_interger_string
+    @type = 'Warning'
+    @msg = 'detected integer and string addition'
+    color_msg
+  end
 
   def color_msg
     @type = if @type == 'Syntax Error'
