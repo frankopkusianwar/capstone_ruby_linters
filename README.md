@@ -2,14 +2,14 @@
 
 ## Description
 
-This is a capstone project for comming up with a linter built in ruby. The linter built in this case is to help beginners in javaScript check for some characters that may lead to errors when forgoten while writing javascript code for example forgetting the use of Var keyword whe declaring variables, performing mathematical operations using floats, missing semi colon at the end of a statement. and forgeting to close open parenthesis.
+This is a capstone project for comming up with a linter built in ruby. The linter built in this case is to help beginners in javaScript check for some characters that may lead to errors when forgoten while writing javascript code for example forgetting the use of Var keyword when declaring variables, performing mathematical operations using floats, missing semi colon at the end of a statement, adding strings to itegers, using = sign in if conditional and forgeting to close open parenthesis.
 
 ## How to run the linter
 
 - clone the project and add the file or files to be linted in the project directory
 - excecute the main.rb file inside bin/main.rb
 - You can as well specify the path to the files to be linted as a commandline argument e.g 
-bin/main.rb path/file_name || bin/main.rb path/directory_name
+bin/main.rb path/file_name or bin/main.rb path/directory_name
 - Note this can only be done when the javascript files are included inside the project directory 
 
 

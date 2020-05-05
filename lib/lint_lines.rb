@@ -114,7 +114,7 @@ class Line
     end
     errors
   end
-  
+
   def check_missing_close_parenthesis(errors, line)
     arr = []
     if valid_line?(line) == true
