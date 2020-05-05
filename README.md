@@ -23,7 +23,7 @@ bin/main.rb path/file_name or bin/main.rb path/directory_name
 
 ## Good code
 - `var x = 1 + 2;` 
-- `if(x==y);` invalid comparison operator for if condition
+- `if(x==y);`
 
 
 ![screenshot](./screenshot.PNG)
