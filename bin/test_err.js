@@ -1,4 +1,4 @@
-var x = 2 * 30;
+var x = 2.0 * 30;
 for ();
 function name(){};
 
