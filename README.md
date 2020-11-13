@@ -57,6 +57,10 @@ To get a local copy up and running follow these simple example steps.
 
 - Clone the project to your local machine
 
+### Tests
+
+- To run tests `bundle excec rspec`
+
 ## Instructions
 - add the javascript files as described in how to use the linter above
 - Open the file of the project on your terminal, and then type bin/main.rb and press enter.
